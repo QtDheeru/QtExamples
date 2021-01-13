@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>bins/sseva.db</file>
+    </qresource>
+</RCC>

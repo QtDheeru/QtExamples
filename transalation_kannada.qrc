@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>kannada.qm</file>
+    </qresource>
+</RCC>

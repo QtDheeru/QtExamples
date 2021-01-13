@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>kan1.qm</file>
+    </qresource>
+</RCC>
