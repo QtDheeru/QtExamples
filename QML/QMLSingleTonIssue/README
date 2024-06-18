@@ -1,0 +1,20 @@
+This example created as part of
+https://forum.qt.io/topic/157297/custom-c-type-from-a-qml-module-is-not-defined-when-used-inside-qml-file
+Issue was the static library & shared library.
+
+If the singleton class is part of the static plugin, it was not usable.
+Once we made the plugin as shared library it started working fine.
+May be issue with QML_IMPORT_PLUGIN in case of cmakelists.txt.
+I have created two directories.
+LogicModule -  This is shared library
+MySingleTon & TestStaticLib were usable in Main.qml
+StaticPlugin - This is static library
+StaticPlugin class was not usable in Main.qml. Getting undefined reference.
+
+Learnings
+
+RESOURCE_PREFIX "/qt/qml/dheeru" will be staring directory.
+URI will be as specified by the URI
+target_link_libraries will help in linking the libraries.
+add_subdirectory will start build the directory according to the
+instructions in CMakeLists.txt file.
