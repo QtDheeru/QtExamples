@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Backwardicon.png</file>
+        <file>Images/forwardIcon.png</file>
+        <file>Images/DvdEjectIcon.png</file>
+        <file>Images/brightnessicon.png</file>
+        <file>Images/backbutton.png</file>
+        <file>Images/Mobile_Icon.png</file>
+        <file>Images/Gold_logo2.png</file>
+        <file>Images/mediaicon.png</file>
+        <file>Images/Pauseicon.png</file>
+        <file>Images/stopicon.png</file>
+        <file>Images/fullscreenicon.png</file>
+        <file>Images/halfscreenicon.png</file>
+        <file>Images/Music-Player-Logo.png</file>
+        <file>Images/Chrysanthemum.jpg</file>
+        <file>Images/Desert.jpg</file>
+        <file>Images/Hydrangeas.jpg</file>
+        <file>Images/Jellyfish.jpg</file>
+        <file>Images/Koala.jpg</file>
+        <file>Images/Lighthouse.jpg</file>
+        <file>Images/Downloads.png</file>
+        <file>Images/galleryicon.png</file>
+        <file>Images/headphones.png</file>
+        <file>Images/Play.png</file>
+        <file>Images/player-icon.png</file>
+        <file>Images/icon-folder.red.videos.png</file>
+        <file>Images/ButtonBackground.png</file>
+        <file>Images/Channelbacwardicon.png</file>
+        <file>Images/Channelforwardicon.png</file>
+    </qresource>
+</RCC>
