@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>LoginLogic.js</file>
+        <file>MTButton.qml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HomePage.qml</file>
+        <file>EngineStartComponent.qml</file>
+        <file>TimeComponent.qml</file>
+        <file>MusicandVideoButtonComponent.qml</file>
+        <file>FocusRectangle.qml</file>
+        <file>VideoPlayerComponent.qml</file>
+        <file>MusicPlayerComponent.qml</file>
+        <file>GalleryImagesComponent.qml</file>
+        <file>RadioScreen.qml</file>
+        <file>CustomizeSlider.qml</file>
+    </qresource>
+</RCC>
