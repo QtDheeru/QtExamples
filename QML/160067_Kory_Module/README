@@ -1,17 +1,20 @@
 
-
-Objective : Build Moudle called PthinkSKoryUtil which 4 qml files.
-            Use these qml files like components
-            Access the qml files through qrc path.
-
+Developed this example to demostrate the basic usage of qt_add_qml_module().
 If you have any questions please drop an email dheerendra@pthinks.com
 
+Objective : Build Moudle called PthinkSKoryUtil which contain 4 qml files.
+            Access the qml components from module PthinkSKoryUtil
+            Access the qml files through qrc path.
 
-Building the Reusable PthinkSKoryUtil Module
+This code structure contains.
+    1. Reusable Module called PthinkSKoryUtil
+    2. Application called UseKoryModule which uses the PthinkSKoryUtil
+
+BUILD - Reusable PthinkSKoryUtil Module
 
 1. Create the Qt Project 160067_Kory_Module using the CMake
 2. This will build the Qt Project for builing the executable.
-3. Remove everything in CMakeLists.txt the except the following
+3. Remove everything in CMakeLists.txt the except the following lines.
     Sample CMakeList.txt file
 
     cmake_minimum_required(VERSION 3.16)
@@ -25,16 +28,18 @@ Building the Reusable PthinkSKoryUtil Module
 
     add_subdirectory(Kory)
 
-4. Kory is subdirectory under the current project
+4. Kory is subdirectory under the current project 160067_Kory_Module
    This will have all the QML files & CMakeList.txt
-   In the current project I have added the following files
+   In the Kory directory added the following files
    TestButton.qml
    HelloWorld.qml
    MyTextEdit.qml
    MyTextEdit.qml
    There are no subdirectories under the Kory as of now
 
-    qt_add_qml_module(PthinkSKoryUtil
+   Kory/CMakeLists.txt contains the following entry.
+
+   qt_add_qml_module(PthinkSKoryUtil
         URI PthinkS.Kory.Two
         VERSION 1.0
         QML_FILES TestButton.qml
@@ -42,12 +47,12 @@ Building the Reusable PthinkSKoryUtil Module
               MyTextEdit.qml
               KoryMain.qml
         OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/KoryModule/bins
-    )
+   )
 
 5. Rebuild your 160067_Kory_Module
    OUTPUT_DIRECTORY = ${CMAKE_SOURCE_DIR}/KoryModule/bins
-6. Under the appropriate build directory you will have the following
-   In summary observer thee following files.
+6. Build directory or output directory contains the following
+   In summary observe the following files.
    a. Target library - libPthinkSKoryUtil.dylib
    b. Target plugin  - libPthinkSKoryUtilPlugin.dylib
    c. qmldir
@@ -56,22 +61,25 @@ Building the Reusable PthinkSKoryUtil Module
    <CMAKE_SOURCE_DIR>/KoryModule/bins/libPthinkSKoryUtilPlugin.dylib
    <CMAKE_SOURCE_DIR>/KoryModule/bins/qmldir
 
-   e. You can specify the different OUTPUT_DIRECTORY as well.
+   e. You can specify the different OUTPUT_DIRECTORY as well. e.g
       a. OUTPUT_DIRECTORY/bins/libPthinkSKoryUtilPlugin.dylib
       b. OUTPUT_DIRECTORY/bins/qmldir
 
-7. Now the module call PthinkSKoryUtil is with URI as PthinkS.Kory.Two .
+7. Now the module called PthinkSKoryUtil is ready with URI as PthinkS.Kory.Two .
 8. qrc path is prepended with :/qt/qml - Many times we forget this.
 
-9. How do we use the QML Components defined in the PthinkSKoryUtil
+9. PthinkSKoryUtil is built.
+   How do we use the QML files/Components defined in the PthinkSKoryUtil
+   Following are the two use cases.
 
-   UseCase_1. Access the qml files PthinkSKoryUtil module in an application using the qrc path
+   UseCase_1. Access using qrc
+              Access the qml files bundled inside PthinkSKoryUtil
               ex. loader.source = "qrc:/TVS/ICube/Two/MyTVSMain.qml
               const QUrl url("qrc:/qt/qml/PthinkS/Kory/Two/KoryMain.qml");
               engine.loadFromModule("PthinkS.Kory.Two", "KoryMain");
               engine.load(url);
 
-   UseCase_2. How to create the Elements from the components present in the PthinkSKoryUtil like
+   UseCase_2. Create the Elements from the components present in the PthinkSKoryUtil like
 
       import PthinkS.Kory.Two
 
@@ -82,11 +90,11 @@ Building the Reusable PthinkSKoryUtil Module
 
       }
 
-How to use this PthinkSKoryUtil.
+USAGE - How to use this PthinkSKoryUtil in an application ?.
 
 1. Create the new project UseMyModule in Cmake
 
-3. If you would access the qml files like UseCase_1(with qrc)
+3. If you would like to access the qml files like UseCase_1(with qrc)
    Link the target library with your application like following
 
    set(LIBS PRIVATE Qt6::Quick ${CMAKE_SOURCE_DIR}/../KoryModule/bins/libPthinkSKoryUtil.dylib)
@@ -97,11 +105,12 @@ How to use this PthinkSKoryUtil.
       <CMAKE_SOURCE_DIR>/KoryModule/bins/libPthinkSKoryUtilPlugin.dylib
    b. Create the directory PthinkS/Kory/Two under bins - E.g
       <CMAKE_SOURCE_DIR>/KoryModule/bins/PthinkS/Kory/Two
-   c. Copy the 'qmldir' and target plugin libTVSUtilPlugin.dylib under
+   c. Copy the 'qmldir' and target plugin libPthinkSKoryUtilPlugin.dylib under
       <CMAKE_SOURCE_DIR>/KoryModule/bins/PthinkS/Kory/Two
    d. Inside the main.cpp add
       engine.addImportPath("<CMAKE_SOURCE_DIR>/KoryModule/bins/");
 
+   Now -
     const QUrl url("qrc:/qt/qml/PthinkS/Kory/Two/KoryMain.qml");
     engine.load(url);
 
