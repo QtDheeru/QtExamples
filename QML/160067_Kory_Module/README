@@ -1,0 +1,114 @@
+
+
+Objective : Build Moudle called PthinkSKoryUtil which 4 qml files.
+            Use these qml files like components
+            Access the qml files through qrc path.
+
+If you have any questions please drop an email dheerendra@pthinks.com
+
+
+Building the Reusable PthinkSKoryUtil Module
+
+1. Create the Qt Project 160067_Kory_Module using the CMake
+2. This will build the Qt Project for builing the executable.
+3. Remove everything in CMakeLists.txt the except the following
+    Sample CMakeList.txt file
+
+    cmake_minimum_required(VERSION 3.16)
+    project(160067_Kory_Module VERSION 0.1 LANGUAGES CXX)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
+    qt_standard_project_setup(REQUIRES 6.5)
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/KoryModule/libs)
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/KoryModule/bins)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/KoryModule/bins)
+
+    add_subdirectory(Kory)
+
+4. Kory is subdirectory under the current project
+   This will have all the QML files & CMakeList.txt
+   In the current project I have added the following files
+   TestButton.qml
+   HelloWorld.qml
+   MyTextEdit.qml
+   MyTextEdit.qml
+   There are no subdirectories under the Kory as of now
+
+    qt_add_qml_module(PthinkSKoryUtil
+        URI PthinkS.Kory.Two
+        VERSION 1.0
+        QML_FILES TestButton.qml
+              HelloWorld.qml
+              MyTextEdit.qml
+              KoryMain.qml
+        OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/KoryModule/bins
+    )
+
+5. Rebuild your 160067_Kory_Module
+   OUTPUT_DIRECTORY = ${CMAKE_SOURCE_DIR}/KoryModule/bins
+6. Under the appropriate build directory you will have the following
+   In summary observer thee following files.
+   a. Target library - libPthinkSKoryUtil.dylib
+   b. Target plugin  - libPthinkSKoryUtilPlugin.dylib
+   c. qmldir
+
+   <CMAKE_SOURCE_DIR>/KoryModule/bins/libPthinkSKoryUtil.dylib
+   <CMAKE_SOURCE_DIR>/KoryModule/bins/libPthinkSKoryUtilPlugin.dylib
+   <CMAKE_SOURCE_DIR>/KoryModule/bins/qmldir
+
+   e. You can specify the different OUTPUT_DIRECTORY as well.
+      a. OUTPUT_DIRECTORY/bins/libPthinkSKoryUtilPlugin.dylib
+      b. OUTPUT_DIRECTORY/bins/qmldir
+
+7. Now the module call PthinkSKoryUtil is with URI as PthinkS.Kory.Two .
+8. qrc path is prepended with :/qt/qml - Many times we forget this.
+
+9. How do we use the QML Components defined in the PthinkSKoryUtil
+
+   UseCase_1. Access the qml files PthinkSKoryUtil module in an application using the qrc path
+              ex. loader.source = "qrc:/TVS/ICube/Two/MyTVSMain.qml
+              const QUrl url("qrc:/qt/qml/PthinkS/Kory/Two/KoryMain.qml");
+              engine.loadFromModule("PthinkS.Kory.Two", "KoryMain");
+              engine.load(url);
+
+   UseCase_2. How to create the Elements from the components present in the PthinkSKoryUtil like
+
+      import PthinkS.Kory.Two
+
+      KorryMain{
+
+      }
+      TestButton{
+
+      }
+
+How to use this PthinkSKoryUtil.
+
+1. Create the new project UseMyModule in Cmake
+
+3. If you would access the qml files like UseCase_1(with qrc)
+   Link the target library with your application like following
+
+   set(LIBS PRIVATE Qt6::Quick ${CMAKE_SOURCE_DIR}/../KoryModule/bins/libPthinkSKoryUtil.dylib)
+   target_link_libraries(appUseKoryModule ${LIBS})
+
+4. If you would like to create the elements,
+   a. Go the directory where plugin exist.
+      <CMAKE_SOURCE_DIR>/KoryModule/bins/libPthinkSKoryUtilPlugin.dylib
+   b. Create the directory PthinkS/Kory/Two under bins - E.g
+      <CMAKE_SOURCE_DIR>/KoryModule/bins/PthinkS/Kory/Two
+   c. Copy the 'qmldir' and target plugin libTVSUtilPlugin.dylib under
+      <CMAKE_SOURCE_DIR>/KoryModule/bins/PthinkS/Kory/Two
+   d. Inside the main.cpp add
+      engine.addImportPath("<CMAKE_SOURCE_DIR>/KoryModule/bins/");
+
+    const QUrl url("qrc:/qt/qml/PthinkS/Kory/Two/KoryMain.qml");
+    engine.load(url);
+
+    OR
+
+    engine.loadFromModule("PthinkS.Kory.Two", "KoryMain");
+
+
+This is all required to use the module.
+If you have questions pl
